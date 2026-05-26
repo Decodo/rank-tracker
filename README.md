@@ -4,6 +4,10 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+<p align="center">
+<a href="https://dashboard.decodo.com/scrapers/pricing?utm_source=github&utm_medium=social&utm_campaign=webscrapingapi"><img src="https://github.com/user-attachments/assets/13b08523-32b0-4c85-8e99-580d7c2a9055"></a>
+</p>
+
 A self-hosted SEO rank tracker built on the [Decodo SERP Scraping API](https://decodo.com/scraping/serp). It tracks organic position, AI Overview citations, featured snippets, and PAA presence across keywords, locations, and devices, storing everything in SQLite and printing trend reports from the terminal.
 
 ## Quick start

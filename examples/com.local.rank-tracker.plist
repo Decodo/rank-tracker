@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd template for macOS unattended scheduling.
+
+  Install:
+    1. Update PROJECT_DIR and ProgramArguments to absolute paths for your checkout.
+    2. cp examples/com.local.rank-tracker.plist ~/Library/LaunchAgents/
+    3. launchctl load ~/Library/LaunchAgents/com.local.rank-tracker.plist
+    4. launchctl start com.local.rank-tracker  # run once now to verify
+    5. tail -f /tmp/rank-tracker.log
+
+  Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.local.rank-tracker.plist
+    rm ~/Library/LaunchAgents/com.local.rank-tracker.plist
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.local.rank-tracker</string>
+
+  <key>WorkingDirectory</key>
+  <string>/absolute/path/to/rank-tracker</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/absolute/path/to/rank-tracker/.venv/bin/python</string>
+    <string>main.py</string>
+    <string>check</string>
+    <string>--alerts</string>
+    <string>--concurrency</string>
+    <string>4</string>
+  </array>
+
+  <!-- Run daily at 06:00 local time. Adjust as desired. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>6</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/rank-tracker.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/rank-tracker.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

@@ -1,0 +1,19 @@
+# Rank tracker — crontab example for Linux / macOS.
+#
+# Install with:
+#   crontab -e
+# and paste the line below, updating PROJECT_DIR to the absolute path of
+# this checkout. The cron environment is sparse, so use absolute paths
+# and the project's own venv Python (not /usr/bin/python).
+
+PROJECT_DIR=/absolute/path/to/rank-tracker
+
+# Daily at 06:00 local time. Use `crontab -l` to verify it's installed.
+0 6 * * * cd $PROJECT_DIR && $PROJECT_DIR/.venv/bin/python main.py check --alerts --concurrency 4 >> $PROJECT_DIR/rank-tracker.log 2>&1
+
+# Weekly summary email (Mondays at 08:00) via HTML report:
+# 0 8 * * 1 cd $PROJECT_DIR && $PROJECT_DIR/.venv/bin/python main.py report --html /tmp/rank.html && mail -s "Weekly rank report" you@example.com < /tmp/rank.html
+
+# Daily freshness check at 09:00 — fails (exits non-zero) if no run in 48h.
+# Wire this to your monitoring or pipe to a notify-on-failure script.
+# 0 9 * * * cd $PROJECT_DIR && $PROJECT_DIR/.venv/bin/python main.py doctor --skip-api --max-staleness-hours 48 >> $PROJECT_DIR/rank-tracker.log 2>&1

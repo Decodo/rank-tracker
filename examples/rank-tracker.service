@@ -1,0 +1,35 @@
+# systemd service + timer for Linux unattended scheduling.
+#
+# Install (as your user, not root):
+#   1. Update WorkingDirectory and ExecStart paths below.
+#   2. mkdir -p ~/.config/systemd/user
+#   3. cp examples/rank-tracker.service ~/.config/systemd/user/
+#   4. cp examples/rank-tracker.timer   ~/.config/systemd/user/
+#   5. systemctl --user daemon-reload
+#   6. systemctl --user enable --now rank-tracker.timer
+#   7. systemctl --user list-timers       # verify schedule
+#   8. journalctl --user -u rank-tracker.service -f   # follow logs
+#
+# Companion timer file (rank-tracker.timer) — save next to this one:
+#
+#   [Unit]
+#   Description=Daily rank tracker check
+#
+#   [Timer]
+#   OnCalendar=*-*-* 06:00:00
+#   Persistent=true
+#
+#   [Install]
+#   WantedBy=timers.target
+
+[Unit]
+Description=Rank tracker check
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/absolute/path/to/rank-tracker
+ExecStart=/absolute/path/to/rank-tracker/.venv/bin/python main.py check --alerts --concurrency 4
+StandardOutput=journal
+StandardError=journal

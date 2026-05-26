@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rank-tracker"
+version = "0.1.0"
+description = "Self-hosted SEO rank tracker built on the Decodo SERP Scraping API"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors = [{name = "Satyam Tripathi"}]
+keywords = ["seo", "rank-tracking", "serp", "decodo"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+]
+dependencies = [
+    "requests>=2.31.0",
+    "pydantic>=2.5.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/triposat/rank-tracker"
+Repository = "https://github.com/triposat/rank-tracker"
+
+[tool.setuptools]
+py-modules = ["canary", "fetcher", "main", "models", "report", "scheduler", "scoring", "storage"]

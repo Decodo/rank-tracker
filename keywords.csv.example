@@ -1,0 +1,9 @@
+keyword,target_domain,geo,locale,device_type,google_results_language,pages,active,frequency
+best laptop 2026,wired.com,United States,en-us,desktop,en,1,yes,daily
+best laptop 2026,wired.com,United Kingdom,en-gb,desktop,en,1,yes,daily
+best laptop 2026,wired.com,United States,en-us,mobile,en,1,yes,daily
+serp scraping api,decodo.com,United States,en-us,desktop,en,1,yes,weekly
+serp scraping api,decodo.com,Germany,de-de,desktop,en,1,yes,weekly
+how to scrape google,decodo.com,United Kingdom,en-gb,desktop,en,1,yes,weekly
+residential proxies,decodo.com,United States,en-us,desktop,en,1,yes,monthly
+old-campaign-keyword,decodo.com,United States,en-us,desktop,en,1,no,daily

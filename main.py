@@ -155,7 +155,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
     if ok and not args.skip_api:
         try:
-            fetcher = DecodoFetcher(timeout=30, max_retries=1)
+            fetcher = DecodoFetcher(timeout=90, max_retries=1)
             result = fetcher.fetch(RankCheckConfig(
                 keyword="decodo",
                 target_domain="decodo.com",
@@ -298,7 +298,7 @@ def cmd_competitors(args: argparse.Namespace) -> int:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="rank-tracker",
-        description="SEO rank tracker built on the Decodo SERP Scraping API.",
+        description="SEO rank tracker built on the Decodo Web Data API.",
     )
     p.add_argument(
         "--db",

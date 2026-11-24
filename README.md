@@ -1,6 +1,4 @@
 # Rank Tracker
-
-[![tests](https://github.com/triposat/rank-tracker/actions/workflows/test.yml/badge.svg)](https://github.com/triposat/rank-tracker/actions/workflows/test.yml)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -8,7 +6,7 @@
 <a href="https://dashboard.decodo.com/scrapers/pricing?utm_source=github&utm_medium=social&utm_campaign=webscrapingapi"><img src="https://github.com/user-attachments/assets/13b08523-32b0-4c85-8e99-580d7c2a9055"></a>
 </p>
 
-A self-hosted SEO rank tracker built on the [Decodo SERP Scraping API](https://decodo.com/scraping/serp). It tracks organic position, AI Overview citations, featured snippets, and PAA presence across keywords, locations, and devices, storing everything in SQLite and printing trend reports from the terminal.
+A self-hosted SEO rank tracker built on the [Decodo Web Data API](https://decodo.com/scraping/serp). It tracks organic position, AI Overview citations, featured snippets, and PAA presence across keywords, locations, and devices, storing everything in SQLite and printing trend reports from the terminal.
 
 ## Quick start
 
@@ -16,7 +14,7 @@ A self-hosted SEO rank tracker built on the [Decodo SERP Scraping API](https://d
 
 ```bash
 # 1. Clone and enter the repo
-git clone https://github.com/triposat/rank-tracker.git
+git clone https://github.com/Decodo/rank-tracker.git
 cd rank-tracker
 
 # 2. Create a virtualenv and install
@@ -27,8 +25,8 @@ pip install -r requirements.txt
 # 3. Provide credentials
 # (Sign up at https://decodo.com/scraping/serp if you don't have an account.)
 cp .env.example .env
-# Edit .env and paste the "Basic authentication token" from your Decodo dashboard
-# (Web Scraping API → API Playground → top-right auth field)
+# Edit .env and paste the API key from your Decodo dashboard
+# (Web Data API → API Playground → "API Key")
 
 # 4. Smoke-test the setup
 python main.py doctor
@@ -55,7 +53,7 @@ All 4 samples below are captured from 1 continuous run against *keywords.csv.exa
 All checks passed. You're ready to run `python main.py check`.
 ```
 
-If *doctor* reports *[FAIL]   Credentials rejected*, the token paste is the most common culprit, so check it for trailing whitespace and confirm you copied the pre-encoded *Basic authentication token* field rather than the raw username/password (the dashboard exposes both).
+If *doctor* reports *[FAIL]   Credentials rejected*, the token paste is the most common culprit, so check it for trailing whitespace and confirm you copied a Web Data API key. Legacy Web Scraping API tokens (base64, sent as *Basic*) and raw username/password pairs don't work with this API.
 
 *python main.py check* (Run 1, fresh DB) prints:
 
@@ -157,7 +155,7 @@ Position 1 sets the baseline at 100, and an AI citation at rank 1 adds 25, so a 
 | *report.py* | Terminal summary + trend + competitor diff + self-contained HTML report. |
 | *main.py* | CLI: *doctor*, *check*, *schedule*, *report*, *competitors*, *export*, *history*, *prune*, *test-alert*. |
 | *keywords.csv.example* | Sample input. Copy to *keywords.csv* and edit with your domains. |
-| *tests/test_all.py* | 109 unit + integration tests against a captured fixture (no network needed). |
+| *tests/test_all.py* | 110 unit + integration tests against a captured fixture (no network needed). |
 | *examples/* | cron / launchd / systemd templates for unattended runs. |
 
 ## Alerting

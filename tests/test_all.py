@@ -212,6 +212,17 @@ class TestFetcherTransport(unittest.TestCase):
     def _fetcher(self) -> DecodoFetcher:
         return DecodoFetcher(auth="abc", max_retries=3, backoff_base=1.0, timeout=5)
 
+    def test_uses_web_data_api_with_bearer_auth(self):
+        f = self._fetcher()
+        mock_resp = MagicMock(status_code=200, ok=True)
+        mock_resp.json.return_value = {}
+        with patch.object(f.session, "post", return_value=mock_resp) as post:
+            f._post({})
+        self.assertEqual(post.call_args.args[0], "https://data.decodo.com/v1/scrape")
+        self.assertEqual(
+            post.call_args.kwargs["headers"]["Authorization"], "Bearer abc"
+        )
+
     def test_401_raises_credential_error_no_retry(self):
         fetcher = self._fetcher()
         mock_resp = MagicMock(status_code=401, ok=False, text="bad creds")

@@ -1,6 +1,6 @@
-"""Decodo SERP Scraping API client and parser.
+"""Decodo Web Data API client and parser.
 
-Wraps the `/v2/scrape` endpoint with `target=google_search` and `parse=true`,
+Wraps the `/v1/scrape` endpoint with `target=google_search` and `parse=true`,
 then walks the parsed JSON to fill out a `RankResult`.
 
 Decodo response shape (parsed):
@@ -26,14 +26,14 @@ from models import AIOverviewCitation, CompetitorEntry, RankCheckConfig, RankRes
 
 logger = logging.getLogger(__name__)
 
-DECODO_ENDPOINT = "https://scraper-api.decodo.com/v2/scrape"
+DECODO_ENDPOINT = "https://data.decodo.com/v1/scrape"
 
 # Retry on these status codes – transient infra issues, not auth/payload problems.
 RETRYABLE_STATUSES = frozenset({429, 500, 502, 503, 504})
 
 
 class DecodoCredentialError(RuntimeError):
-    """Raised on 401/403 – auth token missing or invalid."""
+    """Raised on 401/403 – API key missing or invalid."""
 
 
 class DecodoAPIError(RuntimeError):
@@ -51,7 +51,7 @@ class DecodoFetcher:
         auth = auth or os.environ.get("DECODO_AUTH")
         if not auth:
             raise DecodoCredentialError(
-                "Decodo credentials missing. Set DECODO_AUTH (base64 user:pass) "
+                "Decodo credentials missing. Set DECODO_AUTH (Web Data API key) "
                 "in the environment or pass auth= explicitly. "
                 "Hint: copy .env.example to .env and fill in DECODO_AUTH."
             )
@@ -102,7 +102,7 @@ class DecodoFetcher:
     def _post(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         headers = {
             "Accept": "application/json",
-            "Authorization": f"Basic {self.auth}",
+            "Authorization": f"Bearer {self.auth}",
             "Content-Type": "application/json",
         }
         last_exc: Optional[Exception] = None
@@ -127,8 +127,8 @@ class DecodoFetcher:
             if resp.status_code in (401, 403):
                 raise DecodoCredentialError(
                     f"Decodo rejected credentials (HTTP {resp.status_code}). "
-                    "Verify DECODO_AUTH is the base64-encoded 'user:password' "
-                    "from your Decodo dashboard."
+                    "Verify DECODO_AUTH is the Web Data API key from your Decodo "
+                    "dashboard (legacy Basic tokens don't work here)."
                 )
             if resp.status_code in RETRYABLE_STATUSES and attempt < self.max_retries:
                 logger.warning(

@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 <p align="center">
-<a href="https://dashboard.decodo.com/scrapers/pricing?utm_source=github&utm_medium=social&utm_campaign=webscrapingapi"><img src="https://github.com/user-attachments/assets/13b08523-32b0-4c85-8e99-580d7c2a9055"></a>
+  <a href="https://dashboard.decodo.com/web-data/pricing?utm_source=github&utm_medium=social&utm_campaign=hackernews-research"><img src="https://github.com/user-attachments/assets/233d4e4e-8f64-4179-a32e-a4b9cf78137f" alt="Decodo Web Data API" /></a>
 </p>
 
 A self-hosted SEO rank tracker built on the [Decodo Web Data API](https://decodo.com/scraping/serp). It tracks organic position, AI Overview citations, featured snippets, and PAA presence across keywords, locations, and devices, storing everything in SQLite and printing trend reports from the terminal.

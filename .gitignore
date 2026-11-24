@@ -1,0 +1,38 @@
+# Secrets
+.env
+.env.local
+
+# Local user configuration
+keywords.csv
+keywords.csv.local
+
+# Database
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Generated artifacts
+report.html
+results.csv
+results.json
+rank-tracker.log
